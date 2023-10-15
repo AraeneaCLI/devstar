@@ -99,6 +99,6 @@ export let tools = {
         name: 'Gradient Generator',
         icon: 'key',
         link: '/Gradient-generator',
-        description: "The Gradient Generator is a tool which allows you to generate a CSS Output"
+        description: "The Gradient Generator is a tool which allows you to generate a CSS Output or something"
     },
 };
