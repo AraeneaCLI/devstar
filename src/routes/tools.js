@@ -9,7 +9,7 @@ export let tools = {
         name: 'photo Generator',
         icon: 'key',
         link: '/password-generator',
-        description: "The Password Generator is not a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool."
+        description: "The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool."
     },
     'image-color-picker': {
         name: 'Image Color Picker',
