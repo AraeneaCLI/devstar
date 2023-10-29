@@ -23,9 +23,9 @@
   function generateGradient() {
       gradientCode = `Linear-gradient(${gradientrotation}deg ,${gradientColors[0]}, ${gradientColors[1]})`;
       if (gradienttype === 'linear') {
-    gradientCode = `Linear-gradient(${gradientrotation}deg, ${gradientColors[0]}, ${gradientColors[1]})`;
+    gradientCode = `Linear-gradient(${gradientrotation}deg, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]} 100%)`;
   } else if (gradienttype === 'radial') {
-    gradientCode = `Radial-gradient(${gradientColors[0]}, ${gradientColors[1]})`;
+    gradientCode = `Radial-gradient(at center, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]} 100%)`;
   }
     }
 
