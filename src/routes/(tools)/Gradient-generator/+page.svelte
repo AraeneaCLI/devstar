@@ -6,6 +6,7 @@
   import ColorPicker from 'svelte-awesome-color-picker';
   import { Popover } from 'flowbite-svelte';
   import { onMount } from 'svelte';
+  import { Toast } from 'flowbite-svelte';
 
   export let data;
 
@@ -34,6 +35,35 @@
 
   gradientColors = [color1,color2];
   generateGradient();
+}
+
+function downloadAsText() {
+  const hexColor1 = gradientColors[0];
+  const hexColor2 = gradientColors[1];
+  
+  // Function to convert hex color to RGB
+  function hexToRgb(hex) {
+    hex = hex.replace(/^#/, '');
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `${r}, ${g}, ${b}`;
+  }
+
+  const gradientText = `background: ${gradientCode};`;
+  const hexText = `Hex Color 1: ${hexColor1}, Hex Color 2: ${hexColor2}`;
+  const rgbText = `RGB Color 1: ${hexToRgb(hexColor1)}, RGB Color 2: ${hexToRgb(hexColor2)}`;
+
+  const text = `${gradientText}\n${hexText}\n${rgbText}`;
+
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'gradient.txt';
+  link.click();
 }
 
 const copyCode = async () => {
@@ -135,30 +165,38 @@ const copyCode = async () => {
         <button
           id="b1"
           type="button"
-          class="text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-2"
+          class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mt-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
           on:click={copyCode}
         >
           Copy CSS
         </button>
 
+        <Popover class="w-64 text-sm font-light " title="CSS Output" triggeredBy="#b1">
+          background: {gradientCode}
+        </Popover>
+
         <!-- More Button with Dropdown -->
-        <button
+        
+          <button
           type="button"
-          class="text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-2"
+          class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mt-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
         >
           More
+          <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+          </svg>
         </button>
-        <Dropdown>
-          <DropdownItem on:click={copyCode}>Copy</DropdownItem>
-          <DropdownDivider />
-          <DropdownItem>Fullscreen</DropdownItem>
-          <DropdownItem>Download</DropdownItem>
-        </Dropdown>
-      
         
-     </div>
+    
 
-       
+          <Dropdown>
+            <!-- <DropdownItem on:click={copyCode}>Copy</DropdownItem> -->
+            <DropdownDivider />
+            <DropdownItem>Fullscreen</DropdownItem>
+            <DropdownItem>Download .png</DropdownItem>
+            <DropdownItem on:click={downloadAsText}>Download .txt</DropdownItem>
+          </Dropdown>
+      </div>
   </div>
 
   <!-- Gradient Display (Right Half) {gradientCode}-->
